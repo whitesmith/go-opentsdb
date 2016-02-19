@@ -1,8 +1,10 @@
 package opentsdb
 
 type Query struct {
-	Aggregator string `json:"aggregator"`
-	Metric     string `json:"metric"`
+	Aggregator string            `json:"aggregator"`
+	Metric     string            `json:"metric"`
+	Rate       bool              `json:"rate,omitempty"`
+	Tags       map[string]string `json:"tags,omitempty"`
 }
 
 type QueryParams struct {

@@ -1,7 +1,7 @@
 package opentsdb_test
 
 import (
-	"github.com/adbjesus/go-opentsdb"
+	"github.com/whitesmith/go-opentsdb"
 	"testing"
 	"time"
 )

@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/adbjesus/go-opentsdb"
+	"github.com/whitesmith/go-opentsdb"
 )
 
 var testOptions = opentsdb.Options{
@@ -15,15 +15,16 @@ var testOptions = opentsdb.Options{
 var testClient, _ = opentsdb.NewClient(testOptions)
 
 func TestPut(t *testing.T) {
+	tim := time.Now().Unix()
 	p, _ := opentsdb.NewPoint("app-rankings.rank",
-		time.Now().Unix(),
-		time.Now().Unix()%10,
-		map[string]string{"country": "us"})
+		tim,
+		tim%10,
+		map[string]string{"country": "pt", "id": "1"})
 
 	p2, _ := opentsdb.NewPoint("app-rankings.rank",
-		time.Now().Unix()+1,
-		time.Now().Unix()%10+1,
-		map[string]string{"country": "us"})
+		tim,
+		(tim%10)+10,
+		map[string]string{"country": "pt", "id": "9"})
 
 	bp := opentsdb.NewBatchPoints()
 	bp.AddPoint(p)
