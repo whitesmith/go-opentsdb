@@ -22,6 +22,7 @@ type Options struct {
 type Client struct {
 	url        *url.URL
 	httpClient *http.Client
+	tr         *http.Transport
 }
 
 func NewClient(opt Options) (*Client, error) {
@@ -37,10 +38,20 @@ func NewClient(opt Options) (*Client, error) {
 		return nil, err
 	}
 
+	tr := &http.Transport{}
+
 	return &Client{
-		url:        u,
-		httpClient: &http.Client{},
+		url: u,
+		httpClient: &http.Client{
+			Transport: tr,
+		},
+		tr: tr,
 	}, nil
+}
+
+func (c *Client) Close() error {
+	c.tr.CloseIdleConnections()
+	return nil
 }
 
 func (c *Client) Aggregators() error {
