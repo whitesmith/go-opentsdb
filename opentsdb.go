@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 type Options struct {
@@ -17,6 +18,10 @@ type Options struct {
 	// Port for the opentsdb server
 	// Default: 4242
 	Port int
+
+	// Timeout for http client
+	// Default: no timeout
+	Timeout time.Duration
 }
 
 type Client struct {
@@ -43,6 +48,7 @@ func NewClient(opt Options) (*Client, error) {
 	return &Client{
 		url: u,
 		httpClient: &http.Client{
+			Timeout:   opt.Timeout,
 			Transport: tr,
 		},
 		tr: tr,
